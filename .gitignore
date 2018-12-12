@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.DS_Store
+
+lib/
+es/
+styles/
+bak/
+storybook-static/
+build/
