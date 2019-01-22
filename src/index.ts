@@ -1,2 +1,2 @@
-export * from './services/actions';
-export { default as reducer } from './services/reducer';
+export * from './components';
+export * from './HOC';
