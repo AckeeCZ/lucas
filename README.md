@@ -35,9 +35,73 @@ yarn add @ackee/lucas
 
 ### Components
 
+#### `DataList`
+
+Component that display list of data, optionally scrollable (but scrolling is turned on in default).
+
+Props:
+* `data` (object[]): List of objects that determines data supplied to `RowComponent`.
+* `RowComponent` (ReactComponent|ReactNode): Component or Element used as a list row. Paren should be `tr` to work properly.
+* `noDataMessage` (ReactNode [optional]): Message displayed when data list is empty. Default is `'No data'`
+* `scrollable` (boolean [optional]): Wheather display scrollbars when content overflow container. Default is `true`.
+* `element` (Component|string): Determine type of list root element
+
+Style
+
+It's recommended to style scrollbar thumb using `widget-data-list__scrollbar-thumb` class name, because in default it's `rgba(0, 0, 0, 0)`. Below is a simple example of styling thumb (but most time it's all you need)
+
+```css
+.widget-data-list__scrollbar-thumb {
+    background-color: grey;
+    border-radius: inherit;
+}
+```
+
+Example
+
+```jsx
+import DataList from '@ackee/lucas';
+// or import { DataList } from 'ackee-frontend-toolkit/lib/components';
+
+const data = [
+    { id: 1, text: 'Text 1' },
+    { id: 2, text: 'Text 2' },
+    { id: 3, text: 'Text 3' },
+];
+
+const CustomRowComponent = ({ id, text }) => (
+    <tr>
+        <td style={rowStyle}>{id}</td>
+        <td style={rowStyle}>{text}</td>
+    </tr>
+);
+
+React.render(
+    <div>
+        <DataList data={data} RowComponent={CustomRowComponent} noDataMessage="Data list is empty" />
+    </div>
+)
+));
+```
+
+
 ____
 
 ### Prop types
+
+#### `childrenPropType`
+
+Prop type shape for `children`.
+
+Example
+
+```js
+import { childrenPropType } from '@ackee/lucas'
+
+MyComponent.propTypes = {
+    children: childrenPropType,
+};
+```
 
 ____
 
