@@ -1,7 +1,7 @@
 {
-    "name": "@ackee/$NAME",
+    "name": "@ackee/lucas",
     "version": "0.0.1",
-    "description": "$DESCRIPTION",
+    "description": "Set of React componets, High order components and other UI tools we miss in other packages.",
     "main": "lib/index.js",
     "module": "es/index.js",
     "scripts": {
@@ -24,7 +24,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/AckeeCZ/$NAME"
+        "url": "https://github.com/AckeeCZ/lucas"
     },
     "dependencies": {
         "react-display-name": "^0.2.4",
