@@ -60,8 +60,7 @@ It's recommended to style scrollbar thumb using `widget-data-list__scrollbar-thu
 Example
 
 ```jsx
-import DataList from '@ackee/lucas';
-// or import { DataList } from 'ackee-frontend-toolkit/lib/components';
+import { DataList } from '@ackee/lucas';
 
 const data = [
     { id: 1, text: 'Text 1' },
@@ -124,7 +123,7 @@ Component that catch any unexpected error that occured anywhere in subtree and i
 Example
 
 ```jsx
-import errorBoundary from '@ackee/lucas';
+import { errorBoundary } from '@ackee/lucas';
 
 const SimpleErrorComponent = ({ error }) => (
     <div>
@@ -173,7 +172,7 @@ const Loader = ({ children, show, text }) => (
 export default Loader;
  
 // containers/Users.js
-import loadable from '@ackee/lucas';
+import { loadable } from '@ackee/lucas';
 import Users from '../components/Users';
 import Loader from '../components/Loader';
 
@@ -220,7 +219,7 @@ Component that receives two extra props:
 Example
 
 ```jsx
-import makeDropzone, { FS } from '@ackee/lucas';
+import { makeDropzone, FS } from '@ackee/lucas';
 
 makeDropzone(({ isMouseOver, uploadState }) => (
     <div style={{ backgroundColor: isMouseOver ? 'yellow' : 'grey' }}>
@@ -244,7 +243,7 @@ Function that accepts `UnpureComponent` (React component that should be optimili
 Example - custom equality checker
 
 ```jsx
-import pure from '@ackee/lucas';
+import { pure } from '@ackee/lucas';
 
 const customEqualityChecker = (props, nextProps) => {
     return props.data.changableProp === nextProps.data.changableProp;
@@ -260,7 +259,7 @@ pure(customEqualityChecker)(props => (
 Example - default equality checker
 
 ```jsx
-import pure from '@ackee/lucas';
+import { pure } from '@ackee/lucas';
 
 pure()(props => (
     <div>
