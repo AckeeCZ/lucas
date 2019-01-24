@@ -16,6 +16,7 @@
     * [Components](#components)
     * [Prop types](#prop-types)
     * [HOC](#hoc)    
+    * [Action types](#action-types)    
 
 ## <a name="installation"></a>Installation
 
@@ -268,3 +269,7 @@ pure()(props => (
 ));
 
 ```
+
+-----
+
+### Action types

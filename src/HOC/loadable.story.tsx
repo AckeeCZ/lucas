@@ -4,14 +4,17 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import styles from '@sambego/storybook-styles';
 
-import loadable from './loadable';
+import loadable, { WithLoaderProps } from './loadable';
 import { childrenPropType } from '../components';
 
-const ContentComponent = () => (
-    <h1 style={{ color: 'red' }}>Content component</h1>
-);
+const ContentComponent = () => <h1 style={{ color: 'red' }}>Content component</h1>;
 
-const LoaderOverlay = ({ children, showLoader }) => (
+type ChildrenType = React.ReactNode | React.ReactNodeArray;
+
+const LoaderOverlay: React.FunctionComponent<{ showLoader: boolean; children?: ChildrenType }> = ({
+    children,
+    showLoader,
+}) => (
     <div
         style={{
             position: 'absolute',
@@ -30,26 +33,30 @@ const LoaderOverlay = ({ children, showLoader }) => (
 
 LoaderOverlay.propTypes = {
     showLoader: PropTypes.bool.isRequired,
-    children: PropTypes.oneOfType([
-        PropTypes.node,
-        PropTypes.arrayOf(PropTypes.node),
-    ]),
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };
 
 LoaderOverlay.defaultProps = {
     children: null,
 };
 
-const SimpleLoader = ({ children, show }) => (
+interface SimpleLoaderProps {
+    show: boolean;
+    text: React.ReactNode | null;
+    children?: ChildrenType;
+}
+
+const SimpleLoader: React.FunctionComponent<SimpleLoaderProps> = ({ children, show }) => (
     <div>
         {children}
-        <LoaderOverlay showLoader={show} />
+        <LoaderOverlay showLoader={Boolean(show)} />
     </div>
 );
 
 SimpleLoader.propTypes = {
     children: LoaderOverlay.propTypes.children,
-    show: PropTypes.bool,
+    show: PropTypes.bool.isRequired,
+    text: PropTypes.node,
 };
 
 SimpleLoader.defaultProps = {
@@ -57,25 +64,39 @@ SimpleLoader.defaultProps = {
     show: true,
 };
 
-const TextLoader = ({ children, text, show }) => (
+type TextLoaderProps = SimpleLoaderProps & { text: React.ReactNode };
+
+const TextLoader: React.FunctionComponent<TextLoaderProps> = ({ children, text, show }) => (
     <div>
         {children}
-        <LoaderOverlay showLoader={show}>
-            <div style={{ color: 'red', marginTop: 150, textAlign: 'center' }}>
-                {text}
-            </div>
+        <LoaderOverlay showLoader={Boolean(show)}>
+            <div style={{ color: 'red', marginTop: 150, textAlign: 'center' }}>{text}</div>
         </LoaderOverlay>
     </div>
 );
 
 TextLoader.propTypes = {
-    text: PropTypes.string.isRequired,
     ...SimpleLoader.propTypes,
+    text: PropTypes.node.isRequired,
 };
 
-TextLoader.defaultProps = SimpleLoader.defaultProps;
+TextLoader.defaultProps = {
+    children: null,
+};
 
-class LiveLoader extends React.Component {
+interface LiveLoaderProps {
+    textToExtend?: string | null;
+}
+
+class LiveLoader extends React.Component<LiveLoaderProps> {
+    static propTypes = {
+        textToExtend: PropTypes.string,
+        children: childrenPropType.isRequired,
+    };
+    static defaultProps = {
+        textToExtend: null,
+    };
+
     state = { show: true, remaining: 3 };
 
     componentWillMount() {
@@ -96,26 +117,19 @@ class LiveLoader extends React.Component {
     render() {
         const { textToExtend } = this.props;
         const { remaining, show } = this.state;
-        const props = { showLoader: show };
+        const props = { showLoader: show } as WithLoaderProps;
 
         if (textToExtend) {
             props.loaderText = `${textToExtend} ${remaining}s`;
         }
 
         return React.Children.map(this.props.children, child => {
-            return React.cloneElement(child, props);
+            return React.cloneElement(child as React.ReactElement<{}>, props);
         });
     }
 }
 // addon-storysource is not able to parse propTypes as a class static property, that's why
 //  we must to define it here
-LiveLoader.propTypes = {
-    textToExtend: PropTypes.string,
-    children: childrenPropType.isRequired,
-};
-LiveLoader.defaultProps = {
-    textToExtend: null,
-};
 
 storiesOf('HOC|Lodable', module)
     .addDecorator(
@@ -131,17 +145,11 @@ storiesOf('HOC|Lodable', module)
         return <LoadableComponent showLoader />;
     })
     .add('with custom text', () => {
-        const LoadableComponent = loadable(
-            TextLoader,
-            'Loading content of my app..',
-        )(ContentComponent);
+        const LoadableComponent = loadable(TextLoader, 'Loading content of my app..')(ContentComponent);
         return <LoadableComponent showLoader />;
     })
     .add('loader disappear', () => {
-        const LoadableComponent = loadable(
-            TextLoader,
-            'Loading hide after few seconds',
-        )(ContentComponent);
+        const LoadableComponent = loadable(TextLoader, 'Loading hide after few seconds')(ContentComponent);
         // showLoader is passed to LoadableComponent in LiveLoader
         return (
             <LiveLoader>
@@ -150,10 +158,7 @@ storiesOf('HOC|Lodable', module)
         );
     })
     .add('provide custom text in runtime', () => {
-        const LoadableComponent = loadable(
-            TextLoader,
-            'THIS TEXT WONT BE USED',
-        )(ContentComponent);
+        const LoadableComponent = loadable(TextLoader, 'THIS TEXT WONT BE USED')(ContentComponent);
         // showLoader is passed to LoadableComponent in LiveLoader
         return (
             // the text will be extended in LiveLoader and passed down to LoadableComponent

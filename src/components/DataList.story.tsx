@@ -9,7 +9,7 @@ const data = [
     {
         id: 1,
         text:
-            "How about a magic trick? I'm gonna make this pencil disappear. Ta-da!",
+            'How about a magic trick? I\'m gonna make this pencil disappear. Ta-da!',
     },
     { id: 2, text: 'Do I really look like a guy with a plan?' },
     {
@@ -17,26 +17,33 @@ const data = [
         text:
             'You have nothing, nothing to threaten me with. Nothing to do with all your strength.',
     },
-    { id: 4, text: "If you're good at something, never do it for free." },
+    { id: 4, text: 'If you\'re good at something, never do it for free.' },
     { id: 5, text: 'I just want my phone call.' },
     {
         id: 6,
-        text: "Accomplice? I'm gonna tell them the whole thing was your idea.",
+        text: 'Accomplice? I\'m gonna tell them the whole thing was your idea.',
     },
     {
         id: 7,
         text:
-            "Well, you see... I'm buying this hotel and setting some new rules about the pool area.",
+            'Well, you see... I\'m buying this hotel and setting some new rules about the pool area.',
     },
-    { id: 8, text: "I'm not wearing hockey pads." },
+    { id: 8, text: 'I\'m not wearing hockey pads.' },
     { id: 9, text: 'My anger outweights my guilt.' },
 ];
 
 const rowStyle = {
     borderBottom: '1px dotted',
     padding: 5,
-};
-const RowComponent = ({ id, text }) => (
+} as React.CSSProperties;
+
+interface RowComponentProps {
+    id: number;
+    text: string;
+    index: number;
+}
+
+const RowComponent: React.FunctionComponent<RowComponentProps> = ({ id, text }) => (
     <tr>
         <td style={rowStyle}>{id}</td>
         <td style={rowStyle}>{text}</td>
@@ -46,6 +53,7 @@ const RowComponent = ({ id, text }) => (
 RowComponent.propTypes = {
     id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
 };
 
 const wrapperStyle = {
@@ -54,7 +62,10 @@ const wrapperStyle = {
     width: 300,
 };
 
-const Wrapper = props => (
+interface WrapperProps {
+}
+
+const Wrapper: React.FunctionComponent<WrapperProps> = (props) => (
     <div style={wrapperStyle}>
         <style
             dangerouslySetInnerHTML={{

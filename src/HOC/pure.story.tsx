@@ -9,11 +9,20 @@ const getRandFragment = () => Math.round(Math.random() * 255);
 const getRandColor = () =>
     `rgb(${getRandFragment()}, ${getRandFragment()}, ${getRandFragment()})`;
 
-const UnpureComponent = () => (
+const UnpureComponent: React.FunctionComponent = () => (
     <div style={{ color: getRandColor() }}>I rerendered at {Date.now()}</div>
 );
 
-class StatfulWrapper extends React.Component {
+class StatfulWrapper extends React.Component<{ modifyState: (state: object) => object }, {data: object}> {
+    static propTypes = {
+        children: PropTypes.node.isRequired,
+        modifyState: PropTypes.func,
+    };
+
+    static defaultProps = {
+        modifyState: (state: object): object => state,
+    };
+
     state = {
         data: {
             foo: 'bar',
@@ -24,9 +33,11 @@ class StatfulWrapper extends React.Component {
         },
     };
 
+    input: HTMLTextAreaElement | null = null;
+
     confirmNewState() {
         try {
-            const data = this.props.modifyState(JSON.parse(this.input.value));
+            const data = this.props.modifyState(JSON.parse(this.input ? this.input.value : ''));
             this.setState({ data });
         } catch (e) {
             alert(`State is invalid, fix it: ${e.message}`);
@@ -65,20 +76,11 @@ class StatfulWrapper extends React.Component {
     }
 }
 
-StatfulWrapper.propTypes = {
-    children: PropTypes.node.isRequired,
-    modifyState: PropTypes.func,
-};
-
-StatfulWrapper.defaultProps = {
-    modifyState: (state) => state,
-};
-
 storiesOf('HOC|Pure', module)
     .add(
         'pure',
         () => {
-            const PureComponent = pure(UnpureComponent);
+            const PureComponent = pure()(UnpureComponent);
             return (
                 <StatfulWrapper>
                     <PureComponent />

@@ -31,15 +31,15 @@ export const styles = {
         padding: 75,
         paddingTop: 30,
         paddingBottom: 30,
-    },
+    } as React.CSSProperties,
     dropAreaHover: {
         background: '#FEFFC1',
-    },
+    }  as React.CSSProperties,
     title: {
         fontSize: 14,
         fontWeight: 500,
         lineHeight: '18px',
         color: 'rgba(46, 100, 255, 0.5)',
         marginBottom: 23,
-    },
+    }  as React.CSSProperties,
 };

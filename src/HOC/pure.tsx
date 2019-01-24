@@ -1,17 +1,18 @@
 import React from 'react';
 import _ from 'lodash';
+import getDisplayName from 'react-display-name';
 
-import getDisplayName from '../helpers/componentName';
+function defaultEqualityChecker<P>(props: P, nextProps: P): boolean {
+    return _.isEqual(props, nextProps);
+};
 
-const defaultEqualityChecker = (props, nextProps) => _.isEqual(props, nextProps);
+function pure<P>(equalityChecker: typeof defaultEqualityChecker = defaultEqualityChecker) {
+    return (UnpureComponent: React.ComponentType<P>) => {
+        class PureComponent extends React.Component<P> {
+            static displayName = `Pure(${getDisplayName(UnpureComponent)})`;
 
-const pure = (equalityChecker = defaultEqualityChecker) =>
-    UnpureComponent => {
-        class PureComponent extends React.Component {
-            static displayName = `Pure(${getDisplayName(UnpureComponent)})`
-
-            shouldComponentUpdate(nextProps) {
-                return !equalityChecker(this.props, nextProps);
+            shouldComponentUpdate(nextProps: P) {
+                return !equalityChecker<P>(this.props, nextProps);
             }
 
             render() {
@@ -21,5 +22,6 @@ const pure = (equalityChecker = defaultEqualityChecker) =>
 
         return PureComponent;
     };
+};
 
 export default pure;

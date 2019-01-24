@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import { storiesOf } from '@storybook/react';
 
 import errorBoundary from './errorBoundary';
 
-class ContentComponent extends React.Component {
+interface ContentComponentProps {}
+
+class ContentComponent extends React.Component<ContentComponentProps, { clicked: boolean }> {
     state = { clicked: false };
 
     render() {
@@ -26,9 +29,13 @@ const errorComponentStyles = {
     margin: 'auto',
     backgroundColor: 'white',
     textAlign: 'center',
-};
+} as React.CSSProperties;
 
-const SimpleErrorComponent = ({ error }) => (
+interface SimpleErrorComponentProps {
+    error: Error;
+}
+
+const SimpleErrorComponent: React.FunctionComponent<SimpleErrorComponentProps> = ({ error }) => (
     <div style={errorComponentStyles}>
         ¯\_(ツ)_/¯ Error occured:
         <p>
@@ -38,22 +45,25 @@ const SimpleErrorComponent = ({ error }) => (
 );
 
 SimpleErrorComponent.propTypes = {
-    error: PropTypes.shape({
-        message: PropTypes.string,
-        stack: PropTypes.string,
-    }).isRequired,
+    error: PropTypes.instanceOf(Error).isRequired,
 };
 
 const store = createStore((initial = {}, action) => {
     return {};
 });
 
-storiesOf('HOC|Error boundary', module).add(
+storiesOf('HOC|Error boundary', module)
+.addDecorator(story => (
+    <Provider store={store}>
+        {story()}
+    </Provider>
+))
+.add(
     'basic',
     () => {
-        const BoundedComponent = errorBoundary(SimpleErrorComponent)(
+        const BoundedComponent = errorBoundary<ContentComponentProps>(SimpleErrorComponent)(
             ContentComponent,
         );
-        return <BoundedComponent store={store} />;
+        return <BoundedComponent />;
     },
 );

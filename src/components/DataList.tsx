@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Scrollbars } from 'react-custom-scrollbars';
-import { childrenPropType } from './propTypes';
-import pure from '../HOC/pure';
+import Scrollbars from 'react-custom-scrollbars';
 
 const dataListClassName = 'widget-data-list';
 
-const Thumb = ({ ...props }) => (
-    <div {...props} className={`${dataListClassName}__scrollbar-thumb`} />
-);
+const Thumb = ({ ...props }) => <div {...props} className={`${dataListClassName}__scrollbar-thumb`} />;
 
-const NoDataMessage = ({ message }) => (
+const NoDataMessage: React.FunctionComponent<{ message: React.ReactNode }> = ({ message }) => (
     <div className={`${dataListClassName}__no-data-message`}>{message}</div>
 );
 
@@ -19,7 +15,12 @@ NoDataMessage.propTypes = {
     message: PropTypes.node.isRequired,
 };
 
-export const DataListElement = ({ Element, children, ...props }) =>
+interface DataListElementProps extends React.HTMLAttributes<any> {
+    Element?: string | null;
+    children?: React.ReactNode | React.ReactNodeArray | null;
+}
+
+export const DataListElement: React.FunctionComponent<DataListElementProps> = ({ Element, children, ...props }) =>
     Element ? (
         <Element {...props}>{children}</Element>
     ) : (
@@ -28,18 +29,27 @@ export const DataListElement = ({ Element, children, ...props }) =>
         </table>
     );
 
-DataListElement.propTypes = {
-    Element: PropTypes.string,
-    children: childrenPropType,
-};
-
 DataListElement.defaultProps = {
     Element: null,
     children: null,
 };
 
+type RowElement<P> = React.ReactElement<{ index: number } & P>;
+
+// TODO LHo - invent how to better type any props for RowComponent.
+//  DataList know nothing about these props while they're not it's bussiness
+interface DataListProps<P = any> {
+    data: P[];
+    RowComponent: React.ComponentType<{ index: number } & P> | RowElement<P>;
+    noDataMessage?: React.ReactNode | null;
+    scrollable?: boolean | null;
+    element?: string | null;
+}
+
+const isRowElement = (row: any): row is RowElement<any> => React.isValidElement(row);
+
 /* eslint-disable react/no-array-index-key */
-const DataList = ({
+const DataList: React.FunctionComponent<DataListProps> = ({
     data,
     noDataMessage,
     RowComponent,
@@ -52,21 +62,16 @@ const DataList = ({
 
     const body = (
         <DataListElement className={dataListClassName} Element={element}>
-            {data.map(
-                (rowData, index) =>
-                    React.isValidElement(RowComponent) ? (
-                        React.cloneElement(RowComponent, {
-                            key: `row${index}`,
-                            index,
-                            ...rowData,
-                        })
-                    ) : (
-                        <RowComponent
-                            key={`row${index}`}
-                            index={index}
-                            {...rowData}
-                        />
-                    ),
+            {data.map((rowData, index) =>
+                isRowElement(RowComponent) ? (
+                    React.cloneElement(RowComponent, {
+                        key: `row${index}`,
+                        index,
+                        ...rowData,
+                    })
+                ) : (
+                    <RowComponent key={`row${index}`} index={index} {...rowData} />
+                ),
             )}
         </DataListElement>
     );
@@ -87,9 +92,8 @@ const DataList = ({
 };
 
 DataList.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    RowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.element])
-        .isRequired,
+    data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    RowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
     noDataMessage: PropTypes.node,
     scrollable: PropTypes.bool,
     element: PropTypes.string,
@@ -101,4 +105,4 @@ DataList.defaultProps = {
     element: null,
 };
 
-export default pure()(DataList);
+export default DataList;
