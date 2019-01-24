@@ -11,7 +11,6 @@
 ## Table of contents
 
 * [Installation](#installation)
-* [Usage](#usage)
 * [API](#api)
     * [Components](#components)
     * [Prop types](#prop-types)
