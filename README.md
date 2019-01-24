@@ -1,4 +1,4 @@
-![ackee|lucas](https://img.ack.ee/ackee/image/github/js)
+![ackee|lucas](./assets/ackee_git_frontend_lucas.png)
 
 # [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AckeeCZ/lucas/blob/master/LICENSE) [![CI Status](https://img.shields.io/travis/com/AckeeCZ/lucas.svg?style=flat)](https://travis-ci.com/AckeeCZ/lucas) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request) [![Dependency Status](https://img.shields.io/david/AckeeCZ/lucas.svg?style=flat-square)](https://david-dm.org/AckeeCZ/lucas)
 
