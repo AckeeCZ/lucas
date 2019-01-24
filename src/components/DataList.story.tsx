@@ -113,7 +113,7 @@ storiesOf('Components|DataList', module)
                 <DataList
                     data={[]}
                     RowComponent={RowComponent}
-                    noDataMessage="Harry stold all my data"
+                    noDataMessage="Harry stole all my data"
                 />
             </Wrapper>
         ),

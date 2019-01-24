@@ -62,7 +62,7 @@ class StatfulWrapper extends React.Component<{ modifyState: (state: object) => o
                 />
                 <br />
                 <button onClick={() => this.confirmNewState()}>
-                    Set new state
+                    Set state again
                 </button>
 
                 <p>
