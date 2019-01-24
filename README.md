@@ -40,14 +40,14 @@ yarn add @ackee/lucas
 
 Component that display list of data, optionally scrollable (but scrolling is turned on in default).
 
-Props:
+_Props:_
 * `data` (object[]): List of objects that determines data supplied to `RowComponent`.
 * `RowComponent` (ReactComponent|ReactNode): Component or Element used as a list row. Paren should be `tr` to work properly.
 * `noDataMessage` (ReactNode [optional]): Message displayed when data list is empty. Default is `'No data'`
 * `scrollable` (boolean [optional]): Wheather display scrollbars when content overflow container. Default is `true`.
 * `element` (Component|string): Determine type of list root element
 
-Style
+_Style_
 
 It's recommended to style scrollbar thumb using `widget-data-list__scrollbar-thumb` class name, because in default it's `rgba(0, 0, 0, 0)`. Below is a simple example of styling thumb (but most time it's all you need)
 
@@ -58,7 +58,7 @@ It's recommended to style scrollbar thumb using `widget-data-list__scrollbar-thu
 }
 ```
 
-Example
+_Example_
 
 ```jsx
 import { DataList } from '@ackee/lucas';
@@ -93,7 +93,7 @@ ____
 
 Prop type shape for `children`.
 
-Example
+_Example_
 
 ```js
 import { childrenPropType } from '@ackee/lucas'
@@ -111,8 +111,7 @@ ____
 
 High order component for setting error boundaries up. Implementation is very similar to that [described by React authors](https://reactjs.org/docs/error-boundaries.html).
 
-> ![Important](./assets/alert-icon.png "Improtant note")
- You need React >= v16 and Redux in your app to make everything working properly
+_Arguments:_
 
 `ErrorComponent`: React component that shows the error. Receives
    * prop `error` which is occured error
@@ -121,24 +120,34 @@ High order component for setting error boundaries up. Implementation is very sim
 **Returns**
 Component that catch any unexpected error that occured anywhere in subtree and invoke [`LOG_ERROR`]() action
 
-Example
+_Example_
 
 ```jsx
-import { errorBoundary } from '@ackee/lucas';
-
-const SimpleErrorComponent = ({ error }) => (
+// components/SimpleError.js
+const SimpleError = ({ error }) => (
     <div>
         Error occured!:
         <code>{error.message}</code>
     </div>
 );
 
-errorBoundary(SimpleErrorComponent)(
+// components/MainContent.js
+const MainContent = () => (
     <div>
         <p>Error will be caught up</p>
+        {/* Click on the button bellow generates uncaught error  */}
         <button onClick={(e) => e.callNonExistingFunction()}>Do error</button>
     </div>
 );
+
+// containers/MainContent.js
+import { errorBoundary } from '@ackee/lucas';
+import { compose } from 'redux';
+import MainContent from '../components/MainContent';
+
+compose(
+    errorBoundary(SimpleError),
+)(MainContent);
 ```
 
 #### `loadable(LoaderComponent: Component, defaultText?: string): (MyComponent) => LoadableMyComponent`
@@ -159,7 +168,7 @@ Wrapped loadable component accepts two more props:
 * `show` - loader visibility flag
 * `text` - loader text
 
-Example
+_Example_
 
 ```jsx
 // components/Loader.jsx
@@ -185,91 +194,124 @@ export default compose(
     )
     loadable(SimpleLoader),
 )(Users);
- 
- // components/App.js
-import Users from '../containers/Users';
-
-const App = () => (
-    <Users />
-);
-
-export default App;
 ```
 
 #### `makeDropzone(GraphicComponent): DropzoneComponent`
 
 High order component for easy making of file upload component with file dropzone.
 
-Arguments:
+_Arguments:_
 * `GraphicComponent`: React component that creates dropzone graphic.
 
-Returns:
+_Returns:_
 Component that receives two extra props:
 * `isMouseOver` (boolean): Determine if user drags with mouse over zone. Useful for changing dropzone style.
 * `uploadState` ([FS](#file-state)): Actual state of file upload
-    ```ts
-    enum FS {
-        failed,
-        pending,
-        uploading,
-        uploaded
-    }
-    ```
 
+<a id="file-state"></a> **File state:**
 
-Example
+File upload state, accessible as a property of HOC, so `makeDropzone.FS`. 
+
+```typescript
+enum FS {
+    failed,
+    pending,
+    uploading,
+    uploaded
+}
+```
+
+_Example_
 
 ```jsx
-import { makeDropzone, FS } from '@ackee/lucas';
-
-makeDropzone(({ isMouseOver, uploadState }) => (
+// components/DropArea.js
+const DropArea = ({ isMouseOver, uploadState }) => (
     <div style={{ backgroundColor: isMouseOver ? 'yellow' : 'grey' }}>
         <span className="button--blue button">
-            {uploadState === FS.uploaded || uploadState === FS.failed ? 'Change' : 'Select'}
+            {
+                uploadState === makeDropzone.FS.uploaded || uploadState === makeDropzone.FS.failed 
+                    ? 'Change'
+                    : 'Select'
+                }
         </span>
     </div>
-));
+);
+
+// containers/Dropzone.js
+import { makeDropzone } from '@ackee/lucas';
+import { compose } from 'redux';
+import DropArea from '../components/DropArea';
+
+export default compose(
+    makeDropzone,
+)(DropArea);
+
+// components/UploadImages.js
+import containers from '@ackee/lucas';
+import DropArea from '../containers/Dropzone';
+
+const UploadImages = () => (
+    <Dropzone
+        onDrop={handleFilesDrop}
+        input={{
+            accept: 'image/png, image/jpeg',
+            multiple: boolean,
+        }}
+    />
+)
 ```
 
 #### `pure(equalityChecker): (UnpureComponent) => PureComponent`
 
 Makre provided component pure - it means that component not rerender until it's props change. 
 
-Arguments:
+_Arguments:_
 * `equalityChecker` (function(prevProps, nextProps):bool [optional]) - Function that returns boolean which determines if prev props are equal to next props. You can provide your own eqaulity checker, if you don't provide equality checker, lodash's `isEqual` function is used.
 
 Returns:
 Function that accepts `UnpureComponent` (React component that should be optimilized for useless rerenderes) and return `PureComponent` (component that rerender only if their props change). Change is determined either by equality checker.
 
-Example - custom equality checker
+_Example - custom equality checker_
 
 ```jsx
 import { pure } from '@ackee/lucas';
+import { compose } from 'redux';
 
 const customEqualityChecker = (props, nextProps) => {
     return props.data.changableProp === nextProps.data.changableProp;
 };
 
-pure(customEqualityChecker)(props => (
-    <div>
-        { JSON.stringify(props.data, null, 2) }
-    </div>
-));
+compose(
+    pure(customEqualityChecker),
+)(DataConsumerComponent);
 ```
 
-Example - default equality checker
+_Example - default equality checker_
 
 ```jsx
 import { pure } from '@ackee/lucas';
+import { compose } from 'redux';
 
-pure()(props => (
-    <div>
-        { JSON.stringify(props.data, null, 2) }
-    </div>
-));
+compose(
+    pure(),
+)(DataConsumerComponent);
 
 ```
 
 -----
 
 ### Action types
+
+Logging action types
+* `LOG_ERROR`
+
+```js
+import { actionTypes } from '@ackee/lucas';
+import { takeEvery } from 'redux-saga/effects';
+
+takeEvery(actionTypes.logging.LOG_ERROR, function* (action) {
+    const { error, extra } = action;
+
+    console.log(error, extra);
+});
+```
