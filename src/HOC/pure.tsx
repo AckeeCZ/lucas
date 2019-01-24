@@ -7,7 +7,7 @@ function defaultEqualityChecker<P>(props: P, nextProps: P): boolean {
 };
 
 function pure<P>(equalityChecker: typeof defaultEqualityChecker = defaultEqualityChecker) {
-    return (UnpureComponent: React.ComponentType<P>) => {
+    return (UnpureComponent: React.ComponentType<P>): React.ComponentClass<P> => {
         class PureComponent extends React.Component<P> {
             static displayName = `Pure(${getDisplayName(UnpureComponent)})`;
 
