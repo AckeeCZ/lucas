@@ -2,7 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Scrollbars from 'react-custom-scrollbars';
 
-import DataList, { DataListElement } from '../DataList';
+import DataList from '../DataList';
+import DataListRootElement from '../DataListRootElement';
 
 describe('DataList', () => {
     const RowComponent: React.FunctionComponent<{ id?: string }> = ({ id }) => (
@@ -106,6 +107,6 @@ describe('DataList', () => {
     it('should not use scrollbars when force by prop', () => {
         const list = shallow(<DataList {...{ data, RowComponent, noDataMessage }} scrollable={false} />);
 
-        expect(list.type()).toBe(DataListElement);
+        expect(list.type()).toBe(DataListRootElement);
     });
 });

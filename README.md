@@ -39,14 +39,14 @@ yarn add @ackee/lucas
 
 Component that display list of data, optionally scrollable (but scrolling is turned on in default).
 
-_Props:_
+##### Props
 * `data` (object[]): List of objects that determines data supplied to `RowComponent`.
-* `RowComponent` (ReactComponent|ReactNode): Component or Element used as a list row. Paren should be `tr` to work properly.
-* `noDataMessage` (ReactNode [optional]): Message displayed when data list is empty. Default is `'No data'`
-* `scrollable` (boolean [optional]): Wheather display scrollbars when content overflow container. Default is `true`.
-* `element` (Component|string): Determine type of list root element
+* `RowComponent` (ReactComponent|ReactNode): Component or Element used as a list row. If custom root `element` prop no supplied, then it's `table` and so this component should have `tr` as a root element to work properly.
+* `noDataMessage` (ReactNode [optional]): Message displayed when data list is empty. Default is `'No data'`.
+* `scrollable` (boolean [optional]): Wheather scrollbars should be displayed when content overflow container. Default is `true`.
+* `element` (Component|string): Determine type of list root element.
 
-_Style_
+##### Style
 
 It's recommended to style scrollbar thumb using `widget-data-list__scrollbar-thumb` class name, because in default it's `rgba(0, 0, 0, 0)`. Below is a simple example of styling thumb (but most time it's all you need)
 
@@ -110,13 +110,13 @@ ____
 
 High order component for setting error boundaries up. Implementation is very similar to that [described by React authors](https://reactjs.org/docs/error-boundaries.html).
 
-_Arguments:_
+##### Arguments
 
 `ErrorComponent`: React component that shows the error. Receives
    * prop `error` which is occured error
    * all the props supplied to `BoundedComponent`
 
-**Returns**
+##### Returns
 Component that catch any unexpected error that occured anywhere in subtree and invoke [`LOG_ERROR`]() action
 
 _Example_
@@ -199,15 +199,15 @@ export default compose(
 
 High order component for easy making of file upload component with file dropzone.
 
-_Arguments:_
+##### Arguments
 * `GraphicComponent`: React component that creates dropzone graphic.
 
-_Returns:_
+##### Returns
 Component that receives two extra props:
 * `isMouseOver` (boolean): Determine if user drags with mouse over zone. Useful for changing dropzone style.
 * `uploadState` ([FS](#file-state)): Actual state of file upload
 
-<a id="file-state"></a> **File state:**
+##### File state
 
 File upload state, accessible as a property of HOC, so `makeDropzone.FS`. 
 
@@ -264,7 +264,7 @@ const UploadImages = () => (
 
 Makre provided component pure - it means that component not rerender until it's props change. 
 
-_Arguments:_
+##### Arguments
 * `equalityChecker` (function(prevProps, nextProps):bool [optional]) - Function that returns boolean which determines if prev props are equal to next props. You can provide your own eqaulity checker, if you don't provide equality checker, lodash's `isEqual` function is used.
 
 Returns:
