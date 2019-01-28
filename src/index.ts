@@ -1,2 +1,6 @@
-export * from './services/actions';
-export { default as reducer } from './services/reducer';
+import * as actionTypes from './services/actionTypes';
+
+export * from './components';
+export * from './HOC';
+
+export { actionTypes }
