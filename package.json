@@ -5,7 +5,7 @@
     "main": "lib/index.js",
     "module": "es/index.js",
     "scripts": {
-        "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+        "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --ignore \"**/*.story.tsx,**/*.d.ts\" --source-maps inline",
         "build:types": "tsc --project tsconfig.types.json --emitDeclarationOnly",
         "build": "npm run clean && npm run type-check && npm run build:js && npm run build:types",
         "storybook": "rm -rf build && start-storybook -p 6006",
