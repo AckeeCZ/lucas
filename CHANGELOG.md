@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2019-01-29
+### Changed
+- TSconfig exclude tests from transpilation/generating definitions
+
 ## [0.2.0] - 2019-01-29
 ### Added
 - CHANGELOG.md
@@ -32,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Repository ackee-lucas have been born [`202b401`](https://github.com/AckeeCZ/lucas/commit/202b4014cfbf593e85669ba4983a4e29b361ec3e)
 
+[0.2.1]: https://github.com/AckeeCZ/lucas/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/AckeeCZ/lucas/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/AckeeCZ/lucas/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/AckeeCZ/lucas/compare/v0.1.2...v0.1.3
