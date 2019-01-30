@@ -15,7 +15,8 @@
         "clean": "rm -rf lib",
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch",
-        "start": "npm run build && onchange 'src/**/*.{ts,tsx}' -- npm run build"
+        "start": "npm run build && onchange 'src/**/*.{ts,tsx}' -- npm run build",
+        "version": "changelog-it && vim CHANGELOG.md && git add CHANGELOG.md"
     },
     "author": "Lukáš Horák <lukas.horak@ackee.cz>",
     "contributors": [
@@ -66,6 +67,7 @@
         "@types/storybook__react": "^4.0.0",
         "babel-jest": "^23.6.0",
         "babel-loader": "^8.0.4",
+        "changelog-it": "github:AckeeCZ/changelog-it",
         "cross-env": "^5.2.0",
         "enzyme": "^3.8.0",
         "enzyme-adapter-react-16": "^1.7.1",
