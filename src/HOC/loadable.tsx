@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import getDisplayName from 'react-display-name';
-import _ from 'lodash';
+import { omit } from 'lodash';
 
 interface LoaderComponentProps {
     show: boolean;
@@ -19,7 +19,7 @@ const loadableFactory = (
 ) => (LoadableComponent: React.ComponentType) => {
     const ComponentWithLoader: React.FunctionComponent<WithLoaderProps> = ({ showLoader, loaderText, ...props }) => (
         <LoaderComponent show={showLoader} text={loaderText}>
-            <LoadableComponent {..._.omit(props, ['children'])} />
+            <LoadableComponent {...omit(props, ['children'])} />
         </LoaderComponent>
     );
 

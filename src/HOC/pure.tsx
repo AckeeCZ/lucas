@@ -1,10 +1,10 @@
 import React from 'react';
-import _ from 'lodash';
+import { isEqual } from 'lodash';
 import getDisplayName from 'react-display-name';
 
 function defaultEqualityChecker<P>(props: P, nextProps: P): boolean {
-    return _.isEqual(props, nextProps);
-};
+    return isEqual(props, nextProps);
+}
 
 function pure<P>(equalityChecker: typeof defaultEqualityChecker = defaultEqualityChecker) {
     return (UnpureComponent: React.ComponentType<P>): React.ComponentClass<P> => {
@@ -22,6 +22,6 @@ function pure<P>(equalityChecker: typeof defaultEqualityChecker = defaultEqualit
 
         return PureComponent;
     };
-};
+}
 
 export default pure;
