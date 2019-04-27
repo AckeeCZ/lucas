@@ -7,7 +7,6 @@ module.exports = {
             'babel-plugin-transform-imports',
             {
                 lodash: {
-                    // eslint-disable-next-line
                     transform: 'lodash/${member}',
                     preventFullImport: true,
                 },
