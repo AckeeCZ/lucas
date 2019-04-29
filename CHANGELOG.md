@@ -7,12 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.2.3] - 2019-04-29
 ### Added
-- Run npm install
-- Merge pull request [#4] from AckeeCZ/feature/bundle-size
-- Optimaze lodash partial improts
-
-### Removed
-- Unnecessary eslint disable comment
+- Optimize lodash partial improts
 
 ## [0.2.2] - 2019-01-30
 ### Changed
