@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Receiver, Upload } from 'react-file-uploader';
 import { Subtract } from 'utility-types';
-import _ from 'lodash';
+import { identity } from 'lodash';
 
 enum FS {
     failed = -1,
@@ -52,7 +52,7 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
                 accept: '',
                 multiple: false,
             },
-            filesValidation: _.identity,
+            filesValidation: identity,
         };
 
         imageInput: HTMLInputElement | null = null;
