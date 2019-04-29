@@ -1,6 +1,6 @@
 {
     "name": "@ackee/lucas",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Set of React componets, High order components and other UI tools we miss in other packages.",
     "main": "lib/index.js",
     "module": "es/index.js",
