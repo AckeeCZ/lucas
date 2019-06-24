@@ -5,19 +5,20 @@
     "main": "lib/index.js",
     "module": "es/index.js",
     "scripts": {
-        "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --ignore \"**/*.story.tsx,**/*.d.ts\" --source-maps inline",
+        "build:lib": "BABEL_ENV=lib babel src --out-dir lib --extensions \".ts,.tsx\" --ignore \"**/*.story.tsx,**/*.d.ts\" --source-maps inline",
+        "build:es": "BABEL_ENV=es babel src --out-dir es --extensions \".ts,.tsx\" --ignore \"**/*.story.tsx,**/*.d.ts\" --source-maps inline",
         "build:types": "tsc --project tsconfig.types.json --emitDeclarationOnly",
-        "build": "npm run clean && npm run type-check && npm run build:js && npm run build:types",
+        "build": "npm run clean && npm run type-check && npm run build:lib && npm run build:es && npm run build:types",
         "storybook": "rm -rf build && start-storybook -p 6006",
         "build-storybook": "cross-env BABEL_ENV=development build-storybook -o build",
         "lint": "tslint \"src/**/*.{ts,tsx}\"",
         "test": "BABEL_ENV=test jest",
-        "clean": "rm -rf lib",
+        "clean": "rm -rf lib es",
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch",
         "start": "npm run build && onchange 'src/**/*.{ts,tsx}' -- npm run build",
         "version": "changelog-it && vim CHANGELOG.md && git add CHANGELOG.md",
-        "size": "package-size ./lib --no-cache"
+        "size": "package-size ./es --no-cache"
     },
     "author": "Lukáš Horák <lukas.horak@ackee.cz>",
     "contributors": [
