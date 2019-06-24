@@ -12,8 +12,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Upgrade peer dependencies.
 
-## [0.3.0] - 2019-06-24
-
 ## [0.2.3] - 2019-04-29
 ### Added
 - Optimize `lodash` partial imports.
