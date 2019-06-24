@@ -1,9 +1,11 @@
 /src/
 /storybook-static/
 /build/
+/stories
+.storybook/
+
 Jenkinsfile
 *.story.*
-.storybook/
 package-lock.json
 prettier.config.js
 yarn.lock
@@ -12,3 +14,10 @@ yarn.lock
 .editorconfig
 babel.config.js
 .gitignore
+configure-jest.js
+.travis.yml
+jest.config.js
+tsconfig.json
+tsconfig.types.json
+tslint.json
+.prettierignore
