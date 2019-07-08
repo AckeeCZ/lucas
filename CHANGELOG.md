@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2019-07-08
+### Fixed
+- Avoid omitting children for `loadable` HOC to be able to pass complex components
+
+### Removed
+- Unused import
+
 ## [0.3.0] - 2019-06-24
 ### Added
 - Add configuration for `es` build.
@@ -51,7 +58,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Repository ackee-lucas have been born [`202b401`](https://github.com/AckeeCZ/lucas/commit/202b4014cfbf593e85669ba4983a4e29b361ec3e)
 
-[0.3.0]: https://github.com/AckeeCZ/lucas/compare/v0.3.0...v0.3.0
+[#6]: https://github.com/AckeeCZ/lucas/issues/6
+
+[0.3.1]: https://github.com/AckeeCZ/lucas/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/AckeeCZ/lucas/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/AckeeCZ/lucas/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/AckeeCZ/lucas/compare/v0.2.1...v0.2.2
