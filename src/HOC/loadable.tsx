@@ -19,7 +19,7 @@ const loadableFactory = (
 ) => (LoadableComponent: React.ComponentType) => {
     const ComponentWithLoader: React.FunctionComponent<WithLoaderProps> = ({ showLoader, loaderText, ...props }) => (
         <LoaderComponent show={showLoader} text={loaderText}>
-            <LoadableComponent {...omit(props, ['children'])} />
+            <LoadableComponent {...props} />
         </LoaderComponent>
     );
 
