@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Receiver, Upload } from 'react-file-uploader';
+import ReactDropzone from 'react-dropzone';
 import { Subtract } from 'utility-types';
 import { identity } from 'lodash';
 
@@ -55,8 +55,6 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
             filesValidation: identity,
         };
 
-        imageInput: HTMLInputElement | null = null;
-
         constructor(props: DropzoneProps) {
             super(props);
             this.state = {
@@ -110,12 +108,6 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
             });
         };
 
-        handleClick = () => {
-            if (this.imageInput) {
-                this.imageInput.click();
-            }
-        };
-
         resetInput = () => {
             this.setState({
                 state: null,
@@ -137,32 +129,22 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
                     }}
                 >
                     <div style={{ flex: '1' }}>
-                        <Receiver
-                            key="logo"
-                            wrapperId={wrapperId}
-                            onFileDrop={(e: DragEvent, uploads: Upload[]) => this.onDrop(uploads.map(u => u.data))}
-                            isOpen
+                        <ReactDropzone
+                            onDrop={this.onDrop}
                             onDragEnter={() => null}
                             onDragOver={this.handleDragOver}
-                            onDragLeave={this.handleDragLeave}
-                        >
-                            <div role="button" tabIndex={-1} onClick={this.handleClick}>
-                                <DropzoneGraphic
-                                    isMouseOver={this.state.mouseOver}
-                                    uploadState={this.state.state}
-                                    {...restProps}
-                                />
-                            </div>
-                        </Receiver>
-                        <div style={{ visibility: 'hidden' }}>
-                            <input
-                                {...input}
-                                ref={ref => (this.imageInput = ref)}
-                                type="file"
-                                name="photo"
-                                onChange={({ target }) => target.files && this.onDrop(Array.from(target.files))}
-                            />
-                        </div>
+                            onDragLeave={this.handleDragLeave}>
+                            {({getRootProps, getInputProps}) => (
+                                <div {...getRootProps({role: 'button'})}>
+                                    <input {...getInputProps(input)} />
+                                    <DropzoneGraphic
+                                        isMouseOver={this.state.mouseOver}
+                                        uploadState={this.state.state}
+                                        {...restProps}
+                                    />
+                                </div>
+                            )}
+                        </ReactDropzone>
                     </div>
                 </div>
             );
@@ -170,6 +152,6 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
     };
 }
 
-makeDropzone.FS = FS;
+makeDropzone .FS = FS;
 
-export default makeDropzone;
+export default makeDropzone as typeof makeDropzone && { FS: typeof FS };

@@ -22,5 +22,5 @@ module.exports = {
             },
         ],
     ],
-    ignore: ['**/__tests__/', 'src/**/*.d.ts', 'src/**/*.story.tsx'],
+    ignore: ['**/__tests__/', 'src/**/*.d.ts'],
 };
