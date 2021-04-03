@@ -97,6 +97,7 @@
         "access": "public"
     },
     "resolutions": {
-        "immer": ">=8"
+        "immer": ">=8",
+        "dot-prop": ">=4.2.1"
     }
 }
