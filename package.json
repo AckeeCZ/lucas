@@ -35,7 +35,7 @@
         "lodash": "^4.17.11",
         "react-custom-scrollbars": "^4.2.1",
         "react-display-name": "^0.2.4",
-        "react-file-uploader": "^1.0.0",
+        "react-dropzone": "^11.3.2",
         "utility-types": "^2.1.0"
     },
     "peerDependencies": {
