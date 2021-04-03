@@ -5,12 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.3.1] - 2019-07-08
-### Fixed
-- Avoid omitting children for `loadable` HOC to be able to pass complex components
+## [0.4.0] - 2021-04-03
+
+### Changed
+- 🔨 Switch from npm lock to yarn lock
+- 🔧 Change editor for changelog from vim to vscode
+- 🔧 Remove story files from being ignored by babel
+- ♻️ Replace react-file-uploader with react-dropzone
+- ⬆️ Upgrade travis node.js to v10
+- ⬆️ Upgrade typescript
+- ⬆️ Update babel
+- ⬆️ Upgrade onchange package dependencies
+- ⬆️ Upgrade enzyme to v3.11
+- ⬆️ Upgrade storybook to v5
+- ⬆️ Upgrade eslint to v5.16
+- 📌 Ping dot-prop dependency version to fix vulnerability issue
+- 📌 Pin immer to v8 to fix vulnerability issue
 
 ### Removed
+- 🔥 Remove obsolete sass packages
+
+
+## [0.3.1] - 2019-07-08
+### Removed
 - Unused import
+
+### Fixed
+- Avoid omitting children for `loadable` HOC to be able to pass complex components
 
 ## [0.3.0] - 2019-06-24
 ### Added
@@ -58,8 +79,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Repository ackee-lucas have been born [`202b401`](https://github.com/AckeeCZ/lucas/commit/202b4014cfbf593e85669ba4983a4e29b361ec3e)
 
-[#6]: https://github.com/AckeeCZ/lucas/issues/6
+[#11]: https://github.com/AckeeCZ/lucas/issues/11
 
+[0.4.0]: https://github.com/AckeeCZ/lucas/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/AckeeCZ/lucas/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/AckeeCZ/lucas/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/AckeeCZ/lucas/compare/v0.2.2...v0.2.3
