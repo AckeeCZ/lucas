@@ -8,7 +8,7 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-addDecorator((story, context) => withInfo('')(story)(context));
+addDecorator(withInfo);
 addDecorator(
     withOptions({
       hierarchySeparator: /\//,
