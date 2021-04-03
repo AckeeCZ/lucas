@@ -130,7 +130,7 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
                 >
                     <div style={{ flex: '1' }}>
                         <ReactDropzone
-                            onDrop={this.onDrop} 
+                            onDrop={this.onDrop}
                             onDragEnter={() => null}
                             onDragOver={this.handleDragOver}
                             onDragLeave={this.handleDragLeave}>
@@ -141,7 +141,7 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
                                         isMouseOver={this.state.mouseOver}
                                         uploadState={this.state.state}
                                         {...restProps}
-                                    />  
+                                    />
                                 </div>
                             )}
                         </ReactDropzone>
