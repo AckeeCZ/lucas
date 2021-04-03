@@ -152,6 +152,6 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
     };
 }
 
-makeDropzone.FS = FS;
+makeDropzone .FS = FS;
 
-export default makeDropzone;
+export default makeDropzone as typeof makeDropzone && { FS: typeof FS };
