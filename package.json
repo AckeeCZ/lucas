@@ -95,5 +95,8 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "resolutions": {
+        "immer": ">=8"
     }
 }
