@@ -4,7 +4,7 @@ import ReactDropzone from 'react-dropzone';
 import { Subtract } from 'utility-types';
 import { identity } from 'lodash';
 
-enum FS {
+export enum FS {
     failed = -1,
     pending = 0,
     uploading = 1,
@@ -133,9 +133,10 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
                             onDrop={this.onDrop}
                             onDragEnter={() => null}
                             onDragOver={this.handleDragOver}
-                            onDragLeave={this.handleDragLeave}>
-                            {({getRootProps, getInputProps}) => (
-                                <div {...getRootProps({role: 'button'})}>
+                            onDragLeave={this.handleDragLeave}
+                        >
+                            {({ getRootProps, getInputProps }) => (
+                                <div {...getRootProps({ role: 'button' })}>
                                     <input {...getInputProps(input)} />
                                     <DropzoneGraphic
                                         isMouseOver={this.state.mouseOver}
@@ -152,6 +153,6 @@ function makeDropzone<WrappedProps extends InjectedProps>(DropzoneGraphic: React
     };
 }
 
-makeDropzone .FS = FS;
+makeDropzone.FS = FS;
 
-export default makeDropzone as typeof makeDropzone && { FS: typeof FS };
+export default makeDropzone;
