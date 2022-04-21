@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.4.2] - 2022-04-21
 
+### Change
+- 📝 Add deprecation announcement
+- 📝 Fix changelog format
+
 ## [0.4.1] - 2021-11-25
 ### Changed
 - 🐛 Fix export of makeDropzone
@@ -83,6 +87,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Repository ackee-lucas have been born [`202b401`](https://github.com/AckeeCZ/lucas/commit/202b4014cfbf593e85669ba4983a4e29b361ec3e)
 
+[0.4.2]: https://github.com/AckeeCZ/lucas/compare/v0.4.2...v0.4.2
 [0.4.2]: https://github.com/AckeeCZ/lucas/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/AckeeCZ/lucas/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/AckeeCZ/lucas/compare/v0.3.1...v0.4.0
